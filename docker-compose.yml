@@ -1,0 +1,18 @@
+services:
+  time-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    image: greycrook/time-app:latest
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: greycrook/time-nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - time-app
+    restart: unless-stopped
